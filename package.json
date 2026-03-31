@@ -8,11 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "13.5.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "framer-motion": "^10.12.16",
-    "lucide-react": "^0.257.0",
-    "stripe": "^12.16.0"
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "framer-motion": "^11.11.9",
+    "lucide-react": "^0.468.0",
+    "stripe": "^17.4.0"
   }
 }
