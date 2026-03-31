@@ -109,7 +109,7 @@ export default function Home() {
             <div style={styles.logo}>NØIR</div>
 
             <button style={styles.cartButton} onClick={() => setOpenCart(true)}>
-              <ShoppingBag size={18} />
+              <ShoppingBag size={16} />
               <span>CART ({itemCount})</span>
             </button>
           </div>
@@ -117,43 +117,71 @@ export default function Home() {
 
         <main>
           <section style={styles.hero}>
-            <p style={styles.kicker}>ONLINE EXCLUSIVE</p>
-            <h1 style={styles.heroTitle}>
-              Dark minimalism. Elevated everyday uniform.
-            </h1>
-            <p style={styles.heroText}>
-              NØIR is a digital-first luxury streetwear label built around clean
-              lines, restrained palettes, and statement essentials.
-            </p>
+            <div style={styles.heroInner}>
+              <p style={styles.kicker}>ONLINE EXCLUSIVE</p>
+              <h1 style={styles.heroTitle}>
+                Dark minimalism.
+                <br />
+                Elevated everyday uniform.
+              </h1>
+              <p style={styles.heroText}>
+                NØIR is a digital-first luxury streetwear label built around
+                clean silhouettes, monochrome tones, and premium essentials.
+              </p>
+            </div>
           </section>
 
           <section style={styles.productsSection}>
             <div style={styles.sectionHeader}>
-              <p style={styles.kicker}>DROP 01</p>
-              <h2 style={styles.sectionTitle}>Featured Pieces</h2>
+              <div>
+                <p style={styles.sectionKicker}>DROP 01</p>
+                <h2 style={styles.sectionTitle}>Featured Pieces</h2>
+              </div>
             </div>
 
             <div style={styles.grid}>
               {products.map((product) => (
-                <div key={product.id} style={styles.card}>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    style={styles.productImage}
-                  />
-
-                  <div style={styles.cardBody}>
-                    <div>
-                      <h3 style={styles.productName}>{product.name}</h3>
-                      <p style={styles.productPrice}>${product.price}</p>
-                    </div>
-
+                <div
+                  key={product.id}
+                  style={styles.card}
+                  onMouseEnter={(e) => {
+                    const btn = e.currentTarget.querySelector(".hoverButton");
+                    if (btn) btn.style.opacity = "1";
+                    const img = e.currentTarget.querySelector(".productImage");
+                    if (img) {
+                      img.style.transform = "scale(1.03)";
+                      img.style.opacity = "1";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const btn = e.currentTarget.querySelector(".hoverButton");
+                    if (btn) btn.style.opacity = "0";
+                    const img = e.currentTarget.querySelector(".productImage");
+                    if (img) {
+                      img.style.transform = "scale(1)";
+                      img.style.opacity = "0.9";
+                    }
+                  }}
+                >
+                  <div style={styles.imageWrap}>
+                    <img
+                      className="productImage"
+                      src={product.image}
+                      alt={product.name}
+                      style={styles.productImage}
+                    />
                     <button
-                      style={styles.addButton}
+                      className="hoverButton"
+                      style={styles.hoverAddButton}
                       onClick={() => addToCart(product)}
                     >
                       ADD TO CART
                     </button>
+                  </div>
+
+                  <div style={styles.cardFooter}>
+                    <h3 style={styles.productName}>{product.name}</h3>
+                    <p style={styles.productPrice}>${product.price}</p>
                   </div>
                 </div>
               ))}
@@ -185,7 +213,9 @@ export default function Home() {
                           <p style={styles.cartItemName}>{item.name}</p>
                           <p style={styles.cartItemMeta}>${item.price}</p>
                         </div>
-                        <p>${item.price * item.quantity}</p>
+                        <p style={styles.cartLineTotal}>
+                          ${item.price * item.quantity}
+                        </p>
                       </div>
 
                       <div style={styles.qtyRow}>
@@ -195,7 +225,7 @@ export default function Home() {
                         >
                           <Minus size={14} />
                         </button>
-                        <span>{item.quantity}</span>
+                        <span style={styles.qtyText}>{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
                           style={styles.qtyButton}
@@ -210,8 +240,8 @@ export default function Home() {
 
               <div style={styles.drawerFooter}>
                 <div style={styles.totalRow}>
-                  <span>TOTAL</span>
-                  <span>${total}</span>
+                  <span style={styles.totalLabel}>TOTAL</span>
+                  <span style={styles.totalValue}>${total}</span>
                 </div>
 
                 <button
@@ -219,7 +249,9 @@ export default function Home() {
                   disabled={!cart.length || isCheckingOut}
                   style={{
                     ...styles.checkoutButton,
-                    opacity: !cart.length || isCheckingOut ? 0.5 : 1
+                    opacity: !cart.length || isCheckingOut ? 0.45 : 1,
+                    cursor:
+                      !cart.length || isCheckingOut ? "not-allowed" : "pointer"
                   }}
                 >
                   {isCheckingOut ? "PROCESSING..." : "CHECKOUT"}
@@ -238,19 +270,22 @@ export default function Home() {
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "#000",
-    color: "#fff",
-    fontFamily: "Inter, Arial, sans-serif"
+    background:
+      "linear-gradient(to bottom, #000000 0%, #050505 35%, #000000 100%)",
+    color: "#ffffff",
+    fontFamily:
+      'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
   },
   header: {
     position: "sticky",
     top: 0,
-    zIndex: 40,
-    borderBottom: "1px solid rgba(255,255,255,0.08)",
-    background: "rgba(0,0,0,0.92)"
+    zIndex: 50,
+    background: "rgba(0, 0, 0, 0.82)",
+    backdropFilter: "blur(10px)",
+    borderBottom: "1px solid rgba(255,255,255,0.08)"
   },
   headerInner: {
-    maxWidth: 1200,
+    maxWidth: "1280px",
     margin: "0 auto",
     padding: "20px 24px",
     display: "flex",
@@ -258,99 +293,136 @@ const styles = {
     justifyContent: "space-between"
   },
   logo: {
-    fontSize: 18,
-    letterSpacing: "0.35em"
+    fontSize: "18px",
+    letterSpacing: "0.35em",
+    fontWeight: 400
   },
   cartButton: {
     display: "flex",
     alignItems: "center",
-    gap: 8,
+    gap: "8px",
     background: "transparent",
-    border: "1px solid rgba(255,255,255,0.14)",
-    color: "#fff",
-    padding: "10px 14px",
+    color: "rgba(255,255,255,0.82)",
+    border: "none",
     cursor: "pointer",
-    letterSpacing: "0.18em",
-    fontSize: 12
+    fontSize: "11px",
+    letterSpacing: "0.25em",
+    textTransform: "uppercase"
   },
   hero: {
-    maxWidth: 1200,
+    minHeight: "78vh",
+    display: "flex",
+    alignItems: "center"
+  },
+  heroInner: {
+    maxWidth: "1280px",
     margin: "0 auto",
-    padding: "90px 24px 60px"
+    padding: "70px 24px 90px"
   },
   kicker: {
-    fontSize: 12,
+    margin: 0,
+    fontSize: "12px",
     letterSpacing: "0.35em",
-    opacity: 0.5
+    textTransform: "uppercase",
+    color: "rgba(255,255,255,0.48)"
   },
   heroTitle: {
-    maxWidth: 900,
-    fontSize: 58,
+    margin: "18px 0 0",
+    maxWidth: "980px",
+    fontSize: "clamp(48px, 8vw, 92px)",
+    lineHeight: 0.98,
     fontWeight: 300,
-    lineHeight: 1.1,
-    letterSpacing: "0.05em",
-    marginTop: 18
+    letterSpacing: "0.04em"
   },
   heroText: {
-    maxWidth: 560,
-    marginTop: 26,
-    fontSize: 16,
-    lineHeight: 1.8,
-    color: "rgba(255,255,255,0.68)"
+    marginTop: "28px",
+    maxWidth: "560px",
+    fontSize: "16px",
+    lineHeight: 1.9,
+    color: "rgba(255,255,255,0.64)"
   },
   productsSection: {
-    maxWidth: 1200,
+    maxWidth: "1280px",
     margin: "0 auto",
-    padding: "0 24px 80px"
+    padding: "0 24px 100px"
   },
   sectionHeader: {
-    marginBottom: 28
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    gap: "20px",
+    marginBottom: "28px"
+  },
+  sectionKicker: {
+    margin: 0,
+    fontSize: "12px",
+    letterSpacing: "0.35em",
+    textTransform: "uppercase",
+    color: "rgba(255,255,255,0.4)"
   },
   sectionTitle: {
-    marginTop: 10,
-    fontSize: 28,
+    margin: "12px 0 0",
+    fontSize: "30px",
     fontWeight: 300,
-    letterSpacing: "0.18em"
+    letterSpacing: "0.16em"
   },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-    gap: 24
+    gap: "28px"
   },
   card: {
     background: "#0a0a0a",
-    border: "1px solid rgba(255,255,255,0.08)",
+    borderRadius: "24px",
+    overflow: "hidden",
+    border: "1px solid rgba(255,255,255,0.08)"
+  },
+  imageWrap: {
+    position: "relative",
     overflow: "hidden"
   },
   productImage: {
     width: "100%",
-    height: 460,
+    height: "500px",
     objectFit: "cover",
-    display: "block"
+    display: "block",
+    opacity: 0.9,
+    transform: "scale(1)",
+    transition: "all 0.45s ease"
   },
-  cardBody: {
-    padding: 20,
+  hoverAddButton: {
+    position: "absolute",
+    bottom: "18px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "#ffffff",
+    color: "#000000",
+    border: "none",
+    padding: "13px 22px",
+    fontSize: "11px",
+    letterSpacing: "0.3em",
+    textTransform: "uppercase",
+    cursor: "pointer",
+    opacity: 0,
+    transition: "opacity 0.3s ease"
+  },
+  cardFooter: {
+    padding: "22px 22px 24px",
     display: "flex",
-    flexDirection: "column",
-    gap: 16
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: "12px"
   },
   productName: {
-    fontSize: 14,
-    letterSpacing: "0.12em",
-    margin: 0
+    margin: 0,
+    fontSize: "13px",
+    letterSpacing: "0.16em",
+    fontWeight: 400
   },
   productPrice: {
-    marginTop: 8,
-    color: "rgba(255,255,255,0.6)"
-  },
-  addButton: {
-    background: "#fff",
-    color: "#000",
-    border: "none",
-    padding: "14px 16px",
-    cursor: "pointer",
-    letterSpacing: "0.2em",
-    fontSize: 11
+    margin: 0,
+    fontSize: "13px",
+    color: "rgba(255,255,255,0.56)"
   },
   overlay: {
     position: "fixed",
@@ -362,28 +434,29 @@ const styles = {
   },
   drawer: {
     width: "100%",
-    maxWidth: 420,
+    maxWidth: "420px",
     height: "100%",
-    background: "#000",
+    background: "#000000",
     borderLeft: "1px solid rgba(255,255,255,0.08)",
+    padding: "24px",
     display: "flex",
-    flexDirection: "column",
-    padding: 24
+    flexDirection: "column"
   },
   drawerHeader: {
     display: "flex",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 24
+    justifyContent: "space-between",
+    marginBottom: "26px"
   },
   drawerTitle: {
-    fontSize: 18,
-    letterSpacing: "0.24em",
-    margin: 0
+    margin: 0,
+    fontSize: "18px",
+    letterSpacing: "0.3em",
+    fontWeight: 400
   },
   iconButton: {
     background: "transparent",
-    color: "#fff",
+    color: "#ffffff",
     border: "none",
     cursor: "pointer"
   },
@@ -392,69 +465,89 @@ const styles = {
     overflowY: "auto"
   },
   emptyText: {
-    color: "rgba(255,255,255,0.5)"
+    color: "rgba(255,255,255,0.45)",
+    fontSize: "14px"
   },
   cartItem: {
     borderBottom: "1px solid rgba(255,255,255,0.08)",
-    paddingBottom: 18,
-    marginBottom: 18
+    paddingBottom: "18px",
+    marginBottom: "18px"
   },
   cartTopRow: {
     display: "flex",
     justifyContent: "space-between",
-    gap: 16,
-    marginBottom: 14
+    gap: "14px",
+    marginBottom: "12px"
   },
   cartItemName: {
     margin: 0,
-    fontSize: 14,
-    letterSpacing: "0.12em"
+    fontSize: "13px",
+    letterSpacing: "0.15em"
   },
   cartItemMeta: {
-    marginTop: 6,
-    color: "rgba(255,255,255,0.5)",
-    fontSize: 13
+    margin: "6px 0 0",
+    fontSize: "12px",
+    color: "rgba(255,255,255,0.5)"
+  },
+  cartLineTotal: {
+    margin: 0,
+    fontSize: "13px"
   },
   qtyRow: {
     display: "flex",
     alignItems: "center",
-    gap: 12
+    gap: "10px"
   },
   qtyButton: {
+    width: "32px",
+    height: "32px",
+    border: "1px solid rgba(255,255,255,0.14)",
     background: "transparent",
-    border: "1px solid rgba(255,255,255,0.16)",
-    color: "#fff",
-    width: 32,
-    height: 32,
-    cursor: "pointer"
+    color: "#ffffff",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  qtyText: {
+    minWidth: "22px",
+    textAlign: "center",
+    fontSize: "14px"
   },
   drawerFooter: {
     borderTop: "1px solid rgba(255,255,255,0.08)",
-    paddingTop: 18
+    paddingTop: "18px"
   },
   totalRow: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: 16,
-    fontSize: 14,
-    letterSpacing: "0.12em"
+    alignItems: "center",
+    marginBottom: "18px"
+  },
+  totalLabel: {
+    fontSize: "12px",
+    letterSpacing: "0.18em",
+    color: "rgba(255,255,255,0.58)"
+  },
+  totalValue: {
+    fontSize: "14px"
   },
   checkoutButton: {
     width: "100%",
-    background: "#fff",
-    color: "#000",
+    background: "#ffffff",
+    color: "#000000",
     border: "none",
     padding: "16px",
-    cursor: "pointer",
-    letterSpacing: "0.22em",
-    fontSize: 11
+    fontSize: "11px",
+    letterSpacing: "0.3em",
+    textTransform: "uppercase"
   },
   footer: {
     borderTop: "1px solid rgba(255,255,255,0.08)",
+    padding: "28px 16px",
     textAlign: "center",
-    padding: "26px 16px",
-    fontSize: 11,
-    letterSpacing: "0.28em",
-    color: "rgba(255,255,255,0.45)"
+    fontSize: "11px",
+    letterSpacing: "0.3em",
+    color: "rgba(255,255,255,0.42)"
   }
 };
