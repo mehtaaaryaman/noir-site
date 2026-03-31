@@ -99,14 +99,26 @@ export default function Home() {
     <>
       <Head>
         <title>NØIR</title>
-        <meta name="description" content="Luxury streetwear essentials." />
+        <meta
+          name="description"
+          content="Dark luxury streetwear with a gothic edge."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <div style={styles.page}>
         <header style={styles.header}>
           <div style={styles.headerInner}>
-            <div style={styles.logo}>NØIR</div>
+            <div style={styles.logoWrap}>
+              <div style={styles.logoMark}>✦</div>
+              <div style={styles.logo}>NØIR</div>
+            </div>
+
+            <nav style={styles.nav}>
+              <a href="#shop" style={styles.navLink}>SHOP</a>
+              <a href="#story" style={styles.navLink}>STORY</a>
+              <a href="#contact" style={styles.navLink}>CONTACT</a>
+            </nav>
 
             <button style={styles.cartButton} onClick={() => setOpenCart(true)}>
               <ShoppingBag size={16} />
@@ -117,25 +129,40 @@ export default function Home() {
 
         <main>
           <section style={styles.hero}>
+            <div style={styles.heroOverlay} />
             <div style={styles.heroInner}>
               <p style={styles.kicker}>ONLINE EXCLUSIVE</p>
               <h1 style={styles.heroTitle}>
-                Dark minimalism.
+                Dark luxury.
                 <br />
-                Elevated everyday uniform.
+                Gothic edge.
               </h1>
               <p style={styles.heroText}>
-                NØIR is a digital-first luxury streetwear label built around
-                clean silhouettes, monochrome tones, and premium essentials.
+                NØIR blends monochrome tailoring, streetwear silhouettes, and a
+                sharper rock-inspired attitude into a digital-first label.
               </p>
+
+              <div style={styles.heroButtons}>
+                <a href="#shop" style={styles.primaryButton}>
+                  SHOP DROP 01
+                </a>
+                <a href="#story" style={styles.secondaryButton}>
+                  BRAND STORY
+                </a>
+              </div>
             </div>
           </section>
 
-          <section style={styles.productsSection}>
+          <section id="shop" style={styles.productsSection}>
             <div style={styles.sectionHeader}>
               <div>
                 <p style={styles.sectionKicker}>DROP 01</p>
                 <h2 style={styles.sectionTitle}>Featured Pieces</h2>
+              </div>
+              <div style={styles.ruleWrap}>
+                <span style={styles.rule}></span>
+                <span style={styles.ruleIcon}>✦</span>
+                <span style={styles.rule}></span>
               </div>
             </div>
 
@@ -149,8 +176,8 @@ export default function Home() {
                     if (btn) btn.style.opacity = "1";
                     const img = e.currentTarget.querySelector(".productImage");
                     if (img) {
-                      img.style.transform = "scale(1.03)";
-                      img.style.opacity = "1";
+                      img.style.transform = "scale(1.035)";
+                      img.style.filter = "grayscale(0%) contrast(1.05)";
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -159,7 +186,7 @@ export default function Home() {
                     const img = e.currentTarget.querySelector(".productImage");
                     if (img) {
                       img.style.transform = "scale(1)";
-                      img.style.opacity = "0.9";
+                      img.style.filter = "grayscale(12%) contrast(1)";
                     }
                   }}
                 >
@@ -170,6 +197,7 @@ export default function Home() {
                       alt={product.name}
                       style={styles.productImage}
                     />
+                    <div style={styles.imageShade} />
                     <button
                       className="hoverButton"
                       style={styles.hoverAddButton}
@@ -180,12 +208,34 @@ export default function Home() {
                   </div>
 
                   <div style={styles.cardFooter}>
-                    <h3 style={styles.productName}>{product.name}</h3>
+                    <div>
+                      <h3 style={styles.productName}>{product.name}</h3>
+                      <p style={styles.productSub}>BLACK LABEL ESSENTIAL</p>
+                    </div>
                     <p style={styles.productPrice}>${product.price}</p>
                   </div>
                 </div>
               ))}
             </div>
+          </section>
+
+          <section id="story" style={styles.storySection}>
+            <div style={styles.storyRuleWrap}>
+              <span style={styles.rule}></span>
+              <span style={styles.ruleIcon}>✦</span>
+              <span style={styles.rule}></span>
+            </div>
+
+            <p style={styles.storyEyebrow}>NØIR WORLD</p>
+            <h2 style={styles.storyTitle}>
+              Built for a darker,
+              <br />
+              more elevated uniform.
+            </h2>
+            <p style={styles.storyText}>
+              Designed around black, silver, washed neutrals, and strong
+              silhouettes, NØIR is meant to feel sharp, rare, and understated.
+            </p>
           </section>
         </main>
 
@@ -261,7 +311,17 @@ export default function Home() {
           </div>
         )}
 
-        <footer style={styles.footer}>© 2026 NØIR — ONLINE EXCLUSIVE</footer>
+        <footer id="contact" style={styles.footer}>
+          <div style={styles.footerTop}>
+            <div style={styles.footerBrand}>NØIR</div>
+            <div style={styles.footerLinks}>
+              <span>ONLINE EXCLUSIVE</span>
+              <span>WORLDWIDE SHIPPING</span>
+              <span>CONTACT@NOIR.COM</span>
+            </div>
+          </div>
+          <div style={styles.footerBottom}>© 2026 NØIR</div>
+        </footer>
       </div>
     </>
   );
@@ -270,9 +330,9 @@ export default function Home() {
 const styles = {
   page: {
     minHeight: "100vh",
+    color: "#fff",
     background:
-      "linear-gradient(to bottom, #000000 0%, #050505 35%, #000000 100%)",
-    color: "#ffffff",
+      "radial-gradient(circle at top, rgba(70,70,70,0.12) 0%, rgba(0,0,0,0) 28%), linear-gradient(to bottom, #020202 0%, #000000 55%, #040404 100%)",
     fontFamily:
       'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
   },
@@ -280,164 +340,286 @@ const styles = {
     position: "sticky",
     top: 0,
     zIndex: 50,
-    background: "rgba(0, 0, 0, 0.82)",
-    backdropFilter: "blur(10px)",
+    background: "rgba(0,0,0,0.76)",
+    backdropFilter: "blur(12px)",
     borderBottom: "1px solid rgba(255,255,255,0.08)"
   },
   headerInner: {
-    maxWidth: "1280px",
+    maxWidth: "1320px",
     margin: "0 auto",
-    padding: "20px 24px",
+    padding: "18px 24px",
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    gap: "16px",
+    flexWrap: "wrap"
+  },
+  logoWrap: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px"
+  },
+  logoMark: {
+    fontSize: "14px",
+    color: "rgba(255,255,255,0.75)"
   },
   logo: {
-    fontSize: "18px",
-    letterSpacing: "0.35em",
-    fontWeight: 400
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "28px",
+    letterSpacing: "0.2em",
+    fontWeight: 700
+  },
+  nav: {
+    display: "flex",
+    alignItems: "center",
+    gap: "26px"
+  },
+  navLink: {
+    color: "rgba(255,255,255,0.72)",
+    textDecoration: "none",
+    fontSize: "11px",
+    letterSpacing: "0.28em"
   },
   cartButton: {
     display: "flex",
     alignItems: "center",
     gap: "8px",
     background: "transparent",
-    color: "rgba(255,255,255,0.82)",
-    border: "none",
+    color: "#fff",
+    border: "1px solid rgba(255,255,255,0.16)",
+    padding: "10px 14px",
     cursor: "pointer",
     fontSize: "11px",
-    letterSpacing: "0.25em",
-    textTransform: "uppercase"
+    letterSpacing: "0.22em"
   },
   hero: {
-    minHeight: "78vh",
+    position: "relative",
+    minHeight: "86vh",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    overflow: "hidden"
+  },
+  heroOverlay: {
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.72)), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat",
+    opacity: 0.26
   },
   heroInner: {
-    maxWidth: "1280px",
+    position: "relative",
+    zIndex: 2,
+    maxWidth: "1320px",
     margin: "0 auto",
-    padding: "70px 24px 90px"
+    padding: "80px 24px 100px"
   },
   kicker: {
     margin: 0,
     fontSize: "12px",
-    letterSpacing: "0.35em",
-    textTransform: "uppercase",
-    color: "rgba(255,255,255,0.48)"
+    letterSpacing: "0.38em",
+    color: "rgba(255,255,255,0.56)"
   },
   heroTitle: {
-    margin: "18px 0 0",
-    maxWidth: "980px",
-    fontSize: "clamp(48px, 8vw, 92px)",
-    lineHeight: 0.98,
-    fontWeight: 300,
-    letterSpacing: "0.04em"
+    margin: "22px 0 0",
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "clamp(54px, 8vw, 106px)",
+    lineHeight: 0.92,
+    letterSpacing: "0.04em",
+    fontWeight: 700,
+    textTransform: "uppercase",
+    textShadow: "0 8px 30px rgba(0,0,0,0.45)"
   },
   heroText: {
     marginTop: "28px",
-    maxWidth: "560px",
+    maxWidth: "620px",
     fontSize: "16px",
     lineHeight: 1.9,
-    color: "rgba(255,255,255,0.64)"
+    color: "rgba(255,255,255,0.72)"
+  },
+  heroButtons: {
+    display: "flex",
+    gap: "14px",
+    marginTop: "34px",
+    flexWrap: "wrap"
+  },
+  primaryButton: {
+    background: "#efefef",
+    color: "#000",
+    textDecoration: "none",
+    padding: "15px 22px",
+    fontSize: "11px",
+    letterSpacing: "0.28em"
+  },
+  secondaryButton: {
+    background: "transparent",
+    color: "#fff",
+    textDecoration: "none",
+    border: "1px solid rgba(255,255,255,0.18)",
+    padding: "15px 22px",
+    fontSize: "11px",
+    letterSpacing: "0.28em"
   },
   productsSection: {
-    maxWidth: "1280px",
+    maxWidth: "1320px",
     margin: "0 auto",
-    padding: "0 24px 100px"
+    padding: "0 24px 110px"
   },
   sectionHeader: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-end",
     gap: "20px",
-    marginBottom: "28px"
+    marginBottom: "28px",
+    flexWrap: "wrap"
   },
   sectionKicker: {
     margin: 0,
     fontSize: "12px",
-    letterSpacing: "0.35em",
-    textTransform: "uppercase",
-    color: "rgba(255,255,255,0.4)"
+    letterSpacing: "0.38em",
+    color: "rgba(255,255,255,0.44)"
   },
   sectionTitle: {
     margin: "12px 0 0",
-    fontSize: "30px",
-    fontWeight: 300,
-    letterSpacing: "0.16em"
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "34px",
+    fontWeight: 700,
+    letterSpacing: "0.08em",
+    textTransform: "uppercase"
+  },
+  ruleWrap: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    minWidth: "220px"
+  },
+  rule: {
+    flex: 1,
+    height: "1px",
+    background: "rgba(255,255,255,0.16)"
+  },
+  ruleIcon: {
+    fontSize: "14px",
+    color: "rgba(255,255,255,0.8)"
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
     gap: "28px"
   },
   card: {
-    background: "#0a0a0a",
-    borderRadius: "24px",
+    background: "linear-gradient(to bottom, #0a0a0a, #050505)",
+    border: "1px solid rgba(255,255,255,0.08)",
     overflow: "hidden",
-    border: "1px solid rgba(255,255,255,0.08)"
+    boxShadow: "0 10px 30px rgba(0,0,0,0.28)"
   },
   imageWrap: {
     position: "relative",
     overflow: "hidden"
   },
+  imageShade: {
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0.02), rgba(0,0,0,0.22), rgba(0,0,0,0.42))"
+  },
   productImage: {
     width: "100%",
-    height: "500px",
+    height: "560px",
     objectFit: "cover",
     display: "block",
-    opacity: 0.9,
+    filter: "grayscale(12%) contrast(1)",
     transform: "scale(1)",
     transition: "all 0.45s ease"
   },
   hoverAddButton: {
     position: "absolute",
-    bottom: "18px",
+    bottom: "20px",
     left: "50%",
     transform: "translateX(-50%)",
     background: "#ffffff",
-    color: "#000000",
+    color: "#000",
     border: "none",
     padding: "13px 22px",
     fontSize: "11px",
-    letterSpacing: "0.3em",
-    textTransform: "uppercase",
-    cursor: "pointer",
+    letterSpacing: "0.28em",
     opacity: 0,
-    transition: "opacity 0.3s ease"
+    transition: "opacity 0.3s ease",
+    cursor: "pointer",
+    zIndex: 2
   },
   cardFooter: {
     padding: "22px 22px 24px",
     display: "flex",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "flex-start",
     gap: "12px"
   },
   productName: {
     margin: 0,
-    fontSize: "13px",
-    letterSpacing: "0.16em",
-    fontWeight: 400
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "20px",
+    fontWeight: 700,
+    letterSpacing: "0.05em",
+    textTransform: "uppercase"
+  },
+  productSub: {
+    margin: "8px 0 0",
+    fontSize: "11px",
+    letterSpacing: "0.2em",
+    color: "rgba(255,255,255,0.42)"
   },
   productPrice: {
     margin: 0,
-    fontSize: "13px",
-    color: "rgba(255,255,255,0.56)"
+    fontSize: "14px",
+    color: "rgba(255,255,255,0.78)"
+  },
+  storySection: {
+    maxWidth: "920px",
+    margin: "0 auto",
+    padding: "0 24px 120px",
+    textAlign: "center"
+  },
+  storyRuleWrap: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    marginBottom: "22px"
+  },
+  storyEyebrow: {
+    margin: 0,
+    fontSize: "12px",
+    letterSpacing: "0.38em",
+    color: "rgba(255,255,255,0.45)"
+  },
+  storyTitle: {
+    margin: "20px 0 0",
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "clamp(34px, 5vw, 58px)",
+    lineHeight: 1.02,
+    textTransform: "uppercase",
+    letterSpacing: "0.06em"
+  },
+  storyText: {
+    maxWidth: "700px",
+    margin: "24px auto 0",
+    fontSize: "16px",
+    lineHeight: 1.9,
+    color: "rgba(255,255,255,0.66)"
   },
   overlay: {
     position: "fixed",
     inset: 0,
-    background: "rgba(0,0,0,0.72)",
+    background: "rgba(0,0,0,0.76)",
     display: "flex",
     justifyContent: "flex-end",
     zIndex: 100
   },
   drawer: {
     width: "100%",
-    maxWidth: "420px",
+    maxWidth: "430px",
     height: "100%",
-    background: "#000000",
-    borderLeft: "1px solid rgba(255,255,255,0.08)",
+    background: "#030303",
+    borderLeft: "1px solid rgba(255,255,255,0.1)",
     padding: "24px",
     display: "flex",
     flexDirection: "column"
@@ -450,9 +632,10 @@ const styles = {
   },
   drawerTitle: {
     margin: 0,
-    fontSize: "18px",
-    letterSpacing: "0.3em",
-    fontWeight: 400
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "24px",
+    letterSpacing: "0.08em",
+    textTransform: "uppercase"
   },
   iconButton: {
     background: "transparent",
@@ -482,7 +665,8 @@ const styles = {
   cartItemName: {
     margin: 0,
     fontSize: "13px",
-    letterSpacing: "0.15em"
+    letterSpacing: "0.15em",
+    textTransform: "uppercase"
   },
   cartItemMeta: {
     margin: "6px 0 0",
@@ -530,11 +714,11 @@ const styles = {
     color: "rgba(255,255,255,0.58)"
   },
   totalValue: {
-    fontSize: "14px"
+    fontSize: "15px"
   },
   checkoutButton: {
     width: "100%",
-    background: "#ffffff",
+    background: "#f2f2f2",
     color: "#000000",
     border: "none",
     padding: "16px",
@@ -544,10 +728,36 @@ const styles = {
   },
   footer: {
     borderTop: "1px solid rgba(255,255,255,0.08)",
-    padding: "28px 16px",
-    textAlign: "center",
+    padding: "34px 24px"
+  },
+  footerTop: {
+    maxWidth: "1320px",
+    margin: "0 auto",
+    display: "flex",
+    justifyContent: "space-between",
+    gap: "20px",
+    flexWrap: "wrap",
+    alignItems: "center"
+  },
+  footerBrand: {
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "24px",
+    letterSpacing: "0.18em",
+    textTransform: "uppercase"
+  },
+  footerLinks: {
+    display: "flex",
+    gap: "18px",
+    flexWrap: "wrap",
+    color: "rgba(255,255,255,0.55)",
     fontSize: "11px",
-    letterSpacing: "0.3em",
-    color: "rgba(255,255,255,0.42)"
+    letterSpacing: "0.18em"
+  },
+  footerBottom: {
+    maxWidth: "1320px",
+    margin: "20px auto 0",
+    color: "rgba(255,255,255,0.35)",
+    fontSize: "11px",
+    letterSpacing: "0.2em"
   }
 };
