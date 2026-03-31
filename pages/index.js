@@ -12,17 +12,24 @@ const products = [
   },
   {
     id: 2,
-    name: "NØIR Heavyweight Tee",
+    name: "NØIR Heavyweight T-Shirt",
     price: 68,
     image:
-      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 3,
-    name: "NØIR Studio Pants",
+    name: "NØIR Studio Pant",
     price: 118,
     image:
       "https://images.unsplash.com/photo-1506629905607-d9b1d54ddf1c?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: 4,
+    name: "NØIR Signature Hat",
+    price: 52,
+    image:
+      "https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=1200&q=80"
   }
 ];
 
