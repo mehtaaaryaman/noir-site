@@ -3,34 +3,10 @@ import Head from "next/head";
 import { ShoppingBag, X, Minus, Plus } from "lucide-react";
 
 const products = [
-  {
-    id: 1,
-    name: "NØIR Core Hoodie",
-    price: 140,
-    image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: 2,
-    name: "NØIR Heavyweight T-Shirt",
-    price: 68,
-    image:
-      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: 3,
-    name: "NØIR Studio Pant",
-    price: 118,
-    image:
-      "https://images.unsplash.com/photo-1506629905607-d9b1d54ddf1c?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: 4,
-    name: "NØIR Signature Hat",
-    price: 52,
-    image:
-      "https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=1200&q=80"
-  }
+  { id: 1, name: "NØIR Core Hoodie", price: 140 },
+  { id: 2, name: "NØIR Heavyweight T-Shirt", price: 68 },
+  { id: 3, name: "NØIR Studio Pant", price: 118 },
+  { id: 4, name: "NØIR Signature Hat", price: 52 }
 ];
 
 export default function Home() {
