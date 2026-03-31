@@ -116,13 +116,12 @@ export default function Home() {
             <div style={styles.heroInner}>
               <p style={styles.kicker}>ONLINE EXCLUSIVE</p>
               <h1 style={styles.heroTitle}>
-                Dark luxury.
+                Subversive Craft.
                 <br />
-                Gothic edge.
+                Timeless Shadow.
               </h1>
               <p style={styles.heroText}>
-                NØIR blends monochrome tailoring, streetwear silhouettes, and a
-                sharper rock-inspired attitude into a digital-first label.
+                A convergence of heavy metal, monochrome tailoring, and architectural streetwear. NØIR is the standard for modern, high-contrast luxury.
               </p>
 
               <div style={styles.heroButtons}>
@@ -390,7 +389,7 @@ const styles = {
   },
   heroText: {
     marginTop: "28px",
-    maxWidth: "620px",
+    maxWidth: "720px",
     fontSize: "16px",
     lineHeight: 1.9,
     color: "rgba(255,255,255,0.72)"
