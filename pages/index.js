@@ -151,43 +151,9 @@ export default function Home() {
 
             <div style={styles.grid}>
               {products.map((product) => (
-                <div
-                  key={product.id}
-                  style={styles.card}
-                  onMouseEnter={(e) => {
-                    const btn = e.currentTarget.querySelector(".hoverButton");
-                    if (btn) btn.style.opacity = "1";
-                    const img = e.currentTarget.querySelector(".productImage");
-                    if (img) {
-                      img.style.transform = "scale(1.035)";
-                      img.style.filter = "grayscale(0%) contrast(1.05)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    const btn = e.currentTarget.querySelector(".hoverButton");
-                    if (btn) btn.style.opacity = "0";
-                    const img = e.currentTarget.querySelector(".productImage");
-                    if (img) {
-                      img.style.transform = "scale(1)";
-                      img.style.filter = "grayscale(12%) contrast(1)";
-                    }
-                  }}
-                >
-                  <div style={styles.imageWrap}>
-                    <img
-                      className="productImage"
-                      src={product.image}
-                      alt={product.name}
-                      style={styles.productImage}
-                    />
-                    <div style={styles.imageShade} />
-                    <button
-                      className="hoverButton"
-                      style={styles.hoverAddButton}
-                      onClick={() => addToCart(product)}
-                    >
-                      ADD TO CART
-                    </button>
+                <div key={product.id} style={styles.card}>
+                  <div style={styles.comingSoonBox}>
+                    <div style={styles.comingSoonText}>COMING SOON</div>
                   </div>
 
                   <div style={styles.cardFooter}>
@@ -196,6 +162,15 @@ export default function Home() {
                       <p style={styles.productSub}>BLACK LABEL ESSENTIAL</p>
                     </div>
                     <p style={styles.productPrice}>${product.price}</p>
+                  </div>
+
+                  <div style={styles.cardButtonWrap}>
+                    <button
+                      style={styles.addButton}
+                      onClick={() => addToCart(product)}
+                    >
+                      ADD TO CART
+                    </button>
                   </div>
                 </div>
               ))}
@@ -315,7 +290,7 @@ const styles = {
     minHeight: "100vh",
     color: "#fff",
     background:
-      "radial-gradient(circle at top, rgba(70,70,70,0.12) 0%, rgba(0,0,0,0) 28%), linear-gradient(to bottom, #020202 0%, #000000 55%, #040404 100%)",
+      "radial-gradient(circle at top, rgba(60,60,60,0.08) 0%, rgba(0,0,0,0) 22%), linear-gradient(to bottom, #000000 0%, #010101 55%, #030303 100%)",
     fontFamily:
       'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
   },
@@ -323,7 +298,7 @@ const styles = {
     position: "sticky",
     top: 0,
     zIndex: 50,
-    background: "rgba(0,0,0,0.76)",
+    background: "rgba(0,0,0,0.82)",
     backdropFilter: "blur(12px)",
     borderBottom: "1px solid rgba(255,255,255,0.08)"
   },
@@ -377,17 +352,18 @@ const styles = {
   },
   hero: {
     position: "relative",
-    minHeight: "86vh",
+    minHeight: "82vh",
     display: "flex",
     alignItems: "center",
-    overflow: "hidden"
+    overflow: "hidden",
+    background: "#000"
   },
   heroOverlay: {
     position: "absolute",
     inset: 0,
     background:
-      "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.72)), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat",
-    opacity: 0.26
+      "linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.78))",
+    opacity: 1
   },
   heroInner: {
     position: "relative",
@@ -490,48 +466,29 @@ const styles = {
     gap: "28px"
   },
   card: {
-    background: "linear-gradient(to bottom, #0a0a0a, #050505)",
+    background: "linear-gradient(to bottom, #090909, #030303)",
     border: "1px solid rgba(255,255,255,0.08)",
     overflow: "hidden",
     boxShadow: "0 10px 30px rgba(0,0,0,0.28)"
   },
-  imageWrap: {
-    position: "relative",
-    overflow: "hidden"
-  },
-  imageShade: {
-    position: "absolute",
-    inset: 0,
-    background:
-      "linear-gradient(to bottom, rgba(0,0,0,0.02), rgba(0,0,0,0.22), rgba(0,0,0,0.42))"
-  },
-  productImage: {
+  comingSoonBox: {
     width: "100%",
-    height: "560px",
-    objectFit: "cover",
-    display: "block",
-    filter: "grayscale(12%) contrast(1)",
-    transform: "scale(1)",
-    transition: "all 0.45s ease"
+    height: "520px",
+    background: "#000",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottom: "1px solid rgba(255,255,255,0.08)"
   },
-  hoverAddButton: {
-    position: "absolute",
-    bottom: "20px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    background: "#ffffff",
-    color: "#000",
-    border: "none",
-    padding: "13px 22px",
-    fontSize: "11px",
-    letterSpacing: "0.28em",
-    opacity: 0,
-    transition: "opacity 0.3s ease",
-    cursor: "pointer",
-    zIndex: 2
+  comingSoonText: {
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSize: "14px",
+    letterSpacing: "0.4em",
+    color: "rgba(255,255,255,0.5)",
+    textTransform: "uppercase"
   },
   cardFooter: {
-    padding: "22px 22px 24px",
+    padding: "22px 22px 12px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
@@ -555,6 +512,20 @@ const styles = {
     margin: 0,
     fontSize: "14px",
     color: "rgba(255,255,255,0.78)"
+  },
+  cardButtonWrap: {
+    padding: "0 22px 22px"
+  },
+  addButton: {
+    width: "100%",
+    background: "#f2f2f2",
+    color: "#000",
+    border: "none",
+    padding: "14px 16px",
+    fontSize: "11px",
+    letterSpacing: "0.24em",
+    textTransform: "uppercase",
+    cursor: "pointer"
   },
   storySection: {
     maxWidth: "920px",
